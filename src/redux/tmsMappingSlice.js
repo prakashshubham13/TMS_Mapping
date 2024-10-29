@@ -25,7 +25,6 @@ const tmsMappingSlice = createSlice({
         const { category, screen, newLocation, index, notes } = action.payload;
       
         const categoryEntry = state.find((item) => item[category]);
-      console.log('88888888888888888888888888888',{...categoryEntry},categoryEntry[category][index],categoryEntry[category][index].location);
       
       categoryEntry[category][index].location.push(...newLocation);
       categoryEntry[category][index].notes.push(...notes);
@@ -63,6 +62,15 @@ const tmsMappingSlice = createSlice({
         const categoryEntry = state.find((item) => item[category]);
         categoryEntry[category].push({screen, image, location: [], notes: []})
       },
+      deleteEntry:(state,action)=>{
+        const { category, index } = action.payload;
+        const categoryEntry = state.find((item) => item[category],index);
+        console.log('-----------------------',category,categoryEntry);
+        console.log(categoryEntry[category]);
+        
+        
+        categoryEntry[category].splice(index,1);
+      },
       addNewCategory:(state, action)=>{
         const {name} = action.payload;
         state.push({[name]:[]})
@@ -72,6 +80,6 @@ const tmsMappingSlice = createSlice({
     }
 })
 
-export const {addNewMapping, addnewEntry, addNewCategory} = tmsMappingSlice.actions;
+export const {addNewMapping, addnewEntry, addNewCategory,deleteEntry} = tmsMappingSlice.actions;
 
 export default tmsMappingSlice.reducer;

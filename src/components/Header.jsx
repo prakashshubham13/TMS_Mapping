@@ -7,7 +7,8 @@ const location = useLocation();
             style={{
                 width: '100vw',
                 height: '6vh',
-                borderBottom:'0.2rem solid #fff'
+                borderBottom:'0.2rem solid #fff',
+                zIndex:'10'
             }}
             role="banner"
         >

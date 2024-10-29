@@ -65,7 +65,7 @@ const Preview = ({ data, index }) => {
   return (
     <div style={{ display: 'flex', width: '100%', height: '100%', padding: '0.4rem 0.8rem' }}>
       <div style={{ flex: '1', background: '#fff' }}>
-        <button onClick={() => {
+        <button style={{padding:'0.4rem 0.8rem',fontWeight:'700',color:'rgba(0,0,0,0.6)',borderRadius:'0.2rem0',transform:'translateY(-0.6rem)',cursor:'pointer'}} onClick={() => {
             // saveSvgAsBase64();
             dispatch(addNewMapping({ category: selectedItem, screen: data.screen, newLocation: rectangles, index: index, notes: notesList }))
             setNotesList([]);
