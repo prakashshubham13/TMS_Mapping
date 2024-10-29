@@ -3,6 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const tmsMappingSlice = createSlice({
     name: 'tmsMapping',
     initialState:[
+        {'TMS Login':[]},
+        {'Navigate to Dashboard':[]},
+        {'Filtering':[]},
         {'Origin City':[]},
         {'Orign State':[]},
         {'Origin Zip':[]},
@@ -59,12 +62,16 @@ const tmsMappingSlice = createSlice({
         
         const categoryEntry = state.find((item) => item[category]);
         categoryEntry[category].push({screen, image, location: [], notes: []})
+      },
+      addNewCategory:(state, action)=>{
+        const {name} = action.payload;
+        state.push({[name]:[]})
       }
       
       
     }
 })
 
-export const {addNewMapping, addnewEntry} = tmsMappingSlice.actions;
+export const {addNewMapping, addnewEntry, addNewCategory} = tmsMappingSlice.actions;
 
 export default tmsMappingSlice.reducer;
