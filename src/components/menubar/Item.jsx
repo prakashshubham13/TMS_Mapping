@@ -75,7 +75,7 @@ const Item = ({name, data}) => {
       <select value={selecteImage} onChange={(e)=>setSelectedImage(e.target.value)}>
        {Boolean(selectedScreen) && tmsScreen[selectedScreen]?.map((data,index)=><option value={index}>{selectedScreen}___{index}</option>)}
        </select>
-       <button disabled={selectedScreen} onClick={()=>{
+       <button disabled={selectedScreen === null} onClick={()=>{
         if(selectedScreen === null) return;
         dispatch(addnewEntry({category:selectedItem,screen:selectedScreen,image:selecteImage}))}}>Add New</button>
     </div>

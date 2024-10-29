@@ -15,9 +15,10 @@ const Preview = ({ data, index }) => {
   const svgRef = useRef(null);
   const dispatch = useDispatch();
   const [new_modified_img, setNewModifiedImg] = useState(null); // State to store the base64-encoded SVG
-
+  const [notesList, setNotesList] = useState([]);
   useEffect(() => {
     setRectangles([]);
+    setNotesList([]);
   }, [data, screens]);
 
   const startDrawing = (e) => {
@@ -66,7 +67,9 @@ const Preview = ({ data, index }) => {
       <div style={{ flex: '1', background: '#fff' }}>
         <button onClick={() => {
             // saveSvgAsBase64();
-            dispatch(addNewMapping({ category: selectedItem, screen: data.screen, newLocation: rectangles, index: index, notes: 'Test Note' }))}}>
+            dispatch(addNewMapping({ category: selectedItem, screen: data.screen, newLocation: rectangles, index: index, notes: notesList }))
+            setNotesList([]);
+            }}>
           Save
         </button>
         <div style={{ overflow: 'auto', margin: 'auto', width: '60vw', height: '80vh', padding: '0.4rem 0.8rem' }}>
@@ -106,7 +109,10 @@ const Preview = ({ data, index }) => {
         </div>
       </div>
       <div style={{ flex: '1', background: '#fff' }}>
-        <Notes notesList={data.notes}/>
+        <Notes notesList={[...data.notes, ...notesList]} addNoteList={val=>{
+            console.log('--------------******************',val);
+            
+            setNotesList(prev=>([...prev,val]))}}/>
       </div>
 
     </div>

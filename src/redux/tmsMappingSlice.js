@@ -28,7 +28,7 @@ const tmsMappingSlice = createSlice({
       console.log('88888888888888888888888888888',{...categoryEntry},categoryEntry[category][index],categoryEntry[category][index].location);
       
       categoryEntry[category][index].location.push(...newLocation);
-      categoryEntry[category][index].notes.push(notes);
+      categoryEntry[category][index].notes.push(...notes);
 
         // if (categoryEntry) {
         //   const screenEntry = categoryEntry[category][index].find((entry) => entry.screen === screen);
