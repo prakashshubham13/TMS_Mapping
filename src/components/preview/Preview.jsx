@@ -57,7 +57,7 @@ const Preview = ({ data, index }) => {
     const serializer = new XMLSerializer();
     const svgString = serializer.serializeToString(svg);
     const base64Svg = btoa(svgString);
-    setNewModifiedImg(`data:image/svg+xml;base64,${base64Svg}`);
+    return `data:image/svg+xml;base64,${base64Svg}`;
     console.log("Base64 SVG:", new_modified_img); // Log to confirm
 
   };
@@ -68,7 +68,7 @@ const Preview = ({ data, index }) => {
     
         <button style={{padding:'0.4rem 0.8rem',fontWeight:'700',color:'rgba(0,0,0,0.6)',borderRadius:'0.2rem0',transform:'translateY(-0.6rem)',cursor:'pointer'}} onClick={() => {
             saveSvgAsBase64();
-            dispatch(addNewMapping({ category: selectedItem, screen: data.screen, newLocation: rectangles, index: index, notes: notesList, modifiedImg: new_modified_img }))
+            dispatch(addNewMapping({ category: selectedItem, screen: data.screen, newLocation: rectangles, index: index, notes: notesList, modifiedImg: saveSvgAsBase64() }))
             setNotesList([]);
             }}>
          {/* {Boolean(rectangles.length>0 || notesList.length>0) &&  'unsaved changes'}  */}

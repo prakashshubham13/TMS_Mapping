@@ -70,7 +70,7 @@ console.log("stepper--------->>>>>>>>>>>>>>",config,currentStep,config[currentSt
       <div className="stepperBody">
         {config?.[currentStep - 1] && <Preview data={config[currentStep - 1]} index={currentStep - 1}/>}
       </div>
-      <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}><MultiPagePDF/></div>
+      {config.length > 0 && <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}><MultiPagePDF/></div>}
     </>
   );
 };
