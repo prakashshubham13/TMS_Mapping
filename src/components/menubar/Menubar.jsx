@@ -18,7 +18,7 @@ const Menubar = ({list}) => {
       <div style={{ display: 'flex', alignItems: 'center', width: '100%', padding:'0.2rem 0.8rem' }}>
         <input placeholder='Search...' value={searchInput} onChange={e=>setSearchInput(e.target.value)} style={{ flex: 1, padding: '0.5rem' }} />
         </div>
-        <div style={{height:'80vh',overflowY:'auto'}}>
+        <div style={{height:'75vh',overflowY:'auto'}}>
         {list.filter((data)=>{return Object.keys(data)[0].toLowerCase().includes(searchInput.toLowerCase())}).map((option)=>(<Item name={Object.keys(option)[0]} data={Object.values(option)[0]}/>))}
 <br/>
 <hr/>

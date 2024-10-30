@@ -4,11 +4,24 @@
   box-sizing: border-box;
 }
 
-/*
-646cffaa
-61dafbaa
-fbfffe
-04151f
-b8c0ff
-c8b6ff
-*/
+
+/* Webkit browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background of the scrollbar track */
+  border-radius: 4px; /* Rounded corners for track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners for thumb */
+  border: 2px solid transparent; /* Spacing inside scrollbar thumb */
+  background-clip: content-box; /* To apply border spacing */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Thumb color on hover */
+}

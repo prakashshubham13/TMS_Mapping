@@ -22,12 +22,13 @@ const tmsMappingSlice = createSlice({
       addNewMapping: (state, action) => {
         console.log(action.payload);
         
-        const { category, screen, newLocation, index, notes } = action.payload;
+        const { category, screen, newLocation, index, notes, modifiedImg } = action.payload;
       
         const categoryEntry = state.find((item) => item[category]);
       
       categoryEntry[category][index].location.push(...newLocation);
       categoryEntry[category][index].notes.push(...notes);
+      categoryEntry[category][index].modifiedImg = modifiedImg;
 
         // if (categoryEntry) {
         //   const screenEntry = categoryEntry[category][index].find((entry) => entry.screen === screen);
@@ -60,7 +61,7 @@ const tmsMappingSlice = createSlice({
         console.log(category, screen, image);
         
         const categoryEntry = state.find((item) => item[category]);
-        categoryEntry[category].push({screen, image, location: [], notes: []})
+        categoryEntry[category].push({screen, image, location: [], notes: [], modifiedImg:null})
       },
       deleteEntry:(state,action)=>{
         const { category, index } = action.payload;

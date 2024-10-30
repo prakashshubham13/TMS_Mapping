@@ -57,22 +57,24 @@ const Preview = ({ data, index }) => {
     const serializer = new XMLSerializer();
     const svgString = serializer.serializeToString(svg);
     const base64Svg = btoa(svgString);
-    setNewModifiedImg({base64Image:`data:image/svg+xml;base64,${base64Svg}`,text:"abc"});
+    setNewModifiedImg(`data:image/svg+xml;base64,${base64Svg}`);
     console.log("Base64 SVG:", new_modified_img); // Log to confirm
 
   };
 
   return (
-    <div style={{ display: 'flex', width: '100%', height: '100%', padding: '0.4rem 0.8rem' }}>
+    <div style={{ display: 'flex', width: '100%', height: 'calc(100vh - 20vh)', padding: '0.4rem 0.8rem', overflowY:'hidden' }}>
       <div style={{ flex: '1', background: '#fff' }}>
+    
         <button style={{padding:'0.4rem 0.8rem',fontWeight:'700',color:'rgba(0,0,0,0.6)',borderRadius:'0.2rem0',transform:'translateY(-0.6rem)',cursor:'pointer'}} onClick={() => {
-            // saveSvgAsBase64();
-            dispatch(addNewMapping({ category: selectedItem, screen: data.screen, newLocation: rectangles, index: index, notes: notesList }))
+            saveSvgAsBase64();
+            dispatch(addNewMapping({ category: selectedItem, screen: data.screen, newLocation: rectangles, index: index, notes: notesList, modifiedImg: new_modified_img }))
             setNotesList([]);
             }}>
-          Save
+         {/* {Boolean(rectangles.length>0 || notesList.length>0) &&  'unsaved changes'}  */}
+         Save
         </button>
-        <div style={{ overflow: 'auto', margin: 'auto', width: '60vw', height: '80vh', padding: '0.4rem 0.8rem' }}>
+        <div style={{ overflow: 'auto', margin: 'auto', width: '60vw', height: '100%', padding: '0.4rem 0.8rem' }}>
           <svg
             ref={svgRef}
             id="svg-canvas"

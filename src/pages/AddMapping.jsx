@@ -22,11 +22,12 @@ const AddMapping = () => {
 console.log("selectedItem-----",selectedItem,config);
 
   return (
-    <div style={{display:'flex',width:'100%',height:'100%',borderTop:'0.1rem solid #000'}}>
+    <div style={{display:'flex',width:'100%',height: 'calc(100vh - 6vh)',borderTop:'0.1rem solid #000'}}>
         <div style={{flex:'1',background:'#fff',borderRight:'0.4rem solid rgba(0,0,0,0)'}}><Menubar list={mappingData}/></div>
         <div style={{flex:'4'}}>{selectedItem ? <Stepper config={
             Object.values(config)[0]
             ?? []} /> : null}</div>
+            {/* <MultiPagePDF dataList={}/> */}
     </div>
   )
 }

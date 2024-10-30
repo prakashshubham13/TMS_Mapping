@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./stepper.module.css";
 import Preview from "../preview/Preview";
+import { useDispatch, useSelector } from "react-redux";
+import { changeCurrentStep } from "../../redux/tmsPreviewSlice";
+import MultiPagePDF from "../pdf/MultiPagePDF";
 // const config = [
 //   { name: "Upload", component: <h1>Upload</h1> },
 //   { name: "Map", component: <h1>Map</h1> },
@@ -9,8 +12,9 @@ import Preview from "../preview/Preview";
 // ];
 
 const Stepper = ({config}) => {
-  
-  const [currentStep, setCurretStep] = useState(1);
+  const currentStep = useSelector(state => state.tmsPreview.currentStep);
+  const dispatch = useDispatch();
+  // const [currentStep, setCurretStep] = useState(1);
   const calculateProgressBarWidth = () => {
     return ((currentStep - 1) / (config.length - 1)) * 100;
   };
@@ -43,7 +47,7 @@ console.log("stepper--------->>>>>>>>>>>>>>",config,currentStep,config[currentSt
               <div
                 className={styles.steps}
                 ref={(el)=>stepRef.current[index] = el}
-                onClick={() => setCurretStep(index + 1)}
+                onClick={() => dispatch(changeCurrentStep(index + 1))}
                 
               >
                 <div className={styles.stepNumber} style={{fontWeight:'900',border: index <= currentStep - 1 ? '0.2rem solid #28a745' : '#fff', background: index === currentStep - 1 ? '#28a745' : '#fff',color: index === currentStep - 1 ? '#fff' : '#000'}}>{index + 1}</div>
@@ -66,6 +70,7 @@ console.log("stepper--------->>>>>>>>>>>>>>",config,currentStep,config[currentSt
       <div className="stepperBody">
         {config?.[currentStep - 1] && <Preview data={config[currentStep - 1]} index={currentStep - 1}/>}
       </div>
+      <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}><MultiPagePDF/></div>
     </>
   );
 };

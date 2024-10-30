@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 const Notes = ({notesList, addNoteList}) => {
   const [note, setNote] = useState("");
   return (
-    <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',height:'100%',background:'#fbfcf8',padding:'0.2rem 0.2rem',borderLeft:'0.2rem dashed rgba(0,0,0,0.8)'}}>
+    <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',height: 'calc(100vh - 22vh)',overflowY:'hidden',background:'#fbfcf8',padding:'0.2rem 0.2rem',borderLeft:'0.2rem dashed rgba(0,0,0,0.8)'}}>
       <div style={{flex:5}}>
         {notesList.map((data)=><div>
           {data}

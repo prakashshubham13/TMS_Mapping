@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addPreviewData } from "../../redux/tmsPreviewSlice";
+import { addPreviewData, changeCurrentStep } from "../../redux/tmsPreviewSlice";
 import Preview from "../preview/Preview";
 import { addnewEntry, deleteEntry } from "../../redux/tmsMappingSlice";
 import { FaChevronDown, FaChevronUp, FaPlus } from "react-icons/fa";
@@ -12,6 +12,8 @@ const Item = ({ name, data }) => {
   const dispatch = useDispatch();
   const selectedItem = useSelector((state) => state?.tmsPreview?.previewData);
   const tmsScreen = useSelector((state) => state?.tmsScreen);
+  const currentStep = useSelector(state => state.tmsPreview.currentStep);
+
   console.log("tmsScreen-------", tmsScreen);
   const [selectedScreen, setSelectedScreen] = useState(null);
   const [selecteImage, setSelectedImage] = useState(0);
@@ -30,6 +32,20 @@ const Item = ({ name, data }) => {
   const [show, toggleShow] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [hoverValue, setHovervalue] = useState(null);
+
+
+
+//   const saveSvgAsBase64 = () => {
+//     const svg = svgRef.current;
+//     const serializer = new XMLSerializer();
+//     const svgString = serializer.serializeToString(svg);
+//     const base64Svg = btoa(svgString);
+//     return `data:image/svg+xml;base64,${base64Svg}`;
+// };
+
+
+
+
   return (
     <div
       style={{ borderBottom: "0.1rem solid #000", padding: "0.6rem 0.5rem" }}
@@ -76,8 +92,12 @@ const Item = ({ name, data }) => {
               </div>,
               document.getElementById("popup")
             )}
+
           {data.map((value, index) => (
             <div
+            onClick={()=>{
+              dispatch(changeCurrentStep(index + 1))
+            }}
               style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -87,10 +107,12 @@ const Item = ({ name, data }) => {
                 alignItems:'center'
               }}
             >
-              <div>
+              <div style={{background:currentStep - 1 === index ? 'lightgreen' : ''}}>
                 {name} {index + 1} ___ {value.screen}
               </div>
-              <div onClick={()=>dispatch(deleteEntry({category:name,index}))} style={{cursor:'pointer'}}><MdDeleteOutline/></div>
+              <div onClick={(e)=>{
+                e.stopPropagation();
+                dispatch(deleteEntry({category:name,index}))}} style={{cursor:'pointer'}}><MdDeleteOutline/></div>
             </div>
           ))}
 
@@ -185,10 +207,13 @@ const Item = ({ name, data }) => {
                     category: selectedItem,
                     screen: selectedScreen,
                     image: selecteImage,
+                    
                   })
                 );
+                dispatch(changeCurrentStep(data.length + 1))
               }}
             >
+              {data.length}
               <FaPlus />
             </button>
           </div>

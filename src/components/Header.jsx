@@ -13,19 +13,21 @@ const location = useLocation();
             role="banner"
         >
             <nav aria-label="Main navigation" style={{ width: '100%' }}>
-                <ul style={{ display: 'flex', width: '100%', listStyle: 'none', margin: 0, padding: 0,borderBottom:'0.1rem solid #1a0d6e'}}>
+                <ul style={{ display: 'flex', width: '100%', listStyle: 'none', margin: 0, padding: 0,
+                    // borderBottom:'0.1rem solid #1a0d6e'
+                    }}>
                     <li style={{ flex: 1 }}>
                         <Link
                             to="/"
                             style={{
                                 display: 'block',
                                 background: 'blue',
-                                color: location.pathname === '/' ? '#fbfffe' : '#04151f',
+                                color: location.pathname === '/' ? '#000' : '#04151f',
                                 textAlign: 'center',
                                 padding: '1rem',
                                 textDecoration: 'none',
                                 fontWeight:'900',
-                                background: location.pathname === '/' ? '#1a0d6e' : '#fbfffe',
+                                background: location.pathname === '/' ? 'lightgreen' : '#fbfffe',
                             }}
                         >
                             Upload TMS Screens
@@ -36,8 +38,8 @@ const location = useLocation();
                             to="/addMapping"
                             style={{
                                 display: 'block',
-                                background: location.pathname === '/addMapping' ? '#1a0d6e' : 'grey',
-                                color: location.pathname === '/addMapping' ? '#fbfffe' : '#fff',
+                                background: location.pathname === '/addMapping' ? 'lightgreen' : '#fbfffe',
+                                color: location.pathname === '/addMapping' ? '#000' : '#04151f',
                                 textAlign: 'center',
                                 padding: '1rem',
                                 textDecoration: 'none',
