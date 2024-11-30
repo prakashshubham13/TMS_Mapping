@@ -1,21 +1,214 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeDate } from "../../redux/tmsPreviewSlice";
 
+const Notes = ({ notesList, addNoteList }) => {
+  const [note, setNote] = useState({
+    date:"1",
+    title: "1",
+    oldXpath: "1",
+    newXpath: "1",
+    nodes: "1",
+    note: "1",
+  });
+const dateKey = useSelector(state => state.tmsPreview.date);
+const dispatch = useDispatch();
 
-const Notes = ({notesList, addNoteList}) => {
-  const [note, setNote] = useState("");
+console.log(dateKey);
+
+  const noteRefs = useRef([]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNote((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleAddNote = () => {
+    if (!note.title || !note.oldXpath || !note.newXpath || !note.nodes || !note.note) {
+      alert("Please fill all fields before adding a note.");
+      return;
+    }
+    addNoteList({...note,date:new Date()});
+    setNote({
+      date:"1",
+      title: "1",
+      oldXpath: "1",
+      newXpath: "1",
+      nodes: "1",
+      note: "1",
+    });
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => alert(`Copied to clipboard: ${text}`))
+      .catch((err) => console.error("Failed to copy text: ", err));
+  };
+
+  useEffect(() => {
+    if (dateKey && noteRefs.current.length) {
+      // Find the index of the note that matches the dateKey
+      const index = notesList.findIndex((data) => {
+        console.log(data.date,"------------",data.title,dateKey,data.date.getTime() === dateKey.getTime());
+        
+        return data.date.getTime() === dateKey.getTime();
+      });
+      console.log(index);
+      
+      if (notesList.length - index -1 !== -1 && noteRefs.current[index]) {
+        // Scroll to that particular note
+        noteRefs.current[notesList.length - index -1].scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+      dispatch(changeDate(null));
+    }
+  }, [dateKey, notesList]);
+
   return (
-    <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',height: 'calc(100vh - 22vh)',overflowY:'hidden',background:'#fbfcf8',padding:'0.2rem 0.2rem',borderLeft:'0.2rem dashed rgba(0,0,0,0.8)'}}>
-      <div style={{flex:5}}>
-        {notesList.map((data)=><div>
-          {data}
-        </div>)}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        height: "calc(100vh - 22vh)",
+        overflowY: "hidden",
+        background: "#fbfcf8",
+        padding: "0.4rem",
+        borderLeft: "0.2rem dashed rgba(0,0,0,0.8)",
+      }}
+    >
+      {/* Notes List */}
+      <div style={{ flex: 5, overflowY: "auto", marginBottom: "1rem" }}>
+        {notesList.length > 0 ? (
+          [...notesList]
+            .reverse()
+            .map((data, index) => (
+              <div
+                key={index}
+                ref={(el) => (noteRefs.current[index] = el)} // Assign ref to each note
+                style={{
+                  padding: "0.4rem",
+                  marginBottom: "0.4rem",
+                  border: "1px solid rgba(0, 0, 0, 0.2)",
+                  borderRadius: "0.4rem",
+                  background: "#fff",
+                }}
+              >
+                <p>{data?.date?.getDate()} / {data?.date?.getMonth()}</p>
+                <h4 style={wrapStyle}>Title: {data.title}</h4>
+                <p
+                  style={{ ...wrapStyle, cursor: "pointer", color: "blue" }}
+                  title={data.oldXpath}
+                  onClick={() => copyToClipboard(data.oldXpath)}
+                >
+                  Old Xpath: <span>{data.oldXpath}</span>
+                </p>
+                <p
+                  style={{ ...wrapStyle, cursor: "pointer", color: "blue" }}
+                  title={data.newXpath}
+                  onClick={() => copyToClipboard(data.newXpath)}
+                >
+                  New Xpath: <span>{data.newXpath}</span>
+                </p>
+                <p style={wrapStyle}>Nodes Affected: {data.nodes}</p>
+                <p style={wrapStyle}>Notes: {data.note}</p>
+              </div>
+            ))
+        ) : (
+          <p style={{ textAlign: "center", color: "rgba(0, 0, 0, 0.6)" }}>
+            No notes added yet.
+          </p>
+        )}
       </div>
-      <div style={{display:'flex',justifyContent:'space-between',flexDirection:'column',flex:2}}>
-        <textarea style={{height:'100%'}} value={note} onChange={e=>setNote(e.target.value)} ></textarea>
-        <button style={{padding:'0.4rem 1rem',}} onClick={()=>{if(!note) return;addNoteList(note);setNote('');}}>Add Notes</button>
+
+      {/* Divider */}
+      <div
+        style={{
+          height: "1px",
+          background: "rgba(0, 0, 0, 0.2)",
+          margin: "1rem 0",
+        }}
+      ></div>
+
+      {/* Add New Note */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          flex: 2,
+          gap: "0.4rem",
+        }}
+      >
+        <input
+          name="title"
+          value={note.title}
+          onChange={handleChange}
+          placeholder="Title"
+          style={inputStyle}
+        />
+        <input
+          name="oldXpath"
+          value={note.oldXpath}
+          onChange={handleChange}
+          placeholder="Old Xpath"
+          style={inputStyle}
+        />
+        <input
+          name="newXpath"
+          value={note.newXpath}
+          onChange={handleChange}
+          placeholder="New Xpath"
+          style={inputStyle}
+        />
+        <input
+          name="nodes"
+          value={note.nodes}
+          onChange={handleChange}
+          placeholder="Nodes Affected"
+          style={inputStyle}
+        />
+        <textarea
+          name="note"
+          value={note.note}
+          onChange={handleChange}
+          placeholder="Additional Note"
+          style={{ ...inputStyle, height: "80px", resize: "none" }}
+        />
+        <button
+          onClick={handleAddNote}
+          style={{
+            padding: "0.6rem",
+            background: "#4CAF50",
+            color: "#fff",
+            fontWeight: "bold",
+            border: "none",
+            borderRadius: "0.4rem",
+            cursor: "pointer",
+          }}
+        >
+          Add Note
+        </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Notes
+// Common input style
+const inputStyle = {
+  padding: "0.6rem",
+  border: "1px solid rgba(0, 0, 0, 0.2)",
+  borderRadius: "0.4rem",
+  width: "100%",
+};
+
+const wrapStyle = {
+  margin: "0 0 0.2rem",
+  overflowWrap: "break-word",
+  wordWrap: "break-word",
+  whiteSpace: "normal",
+};
+
+export default Notes;

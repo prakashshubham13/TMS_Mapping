@@ -49,6 +49,22 @@ const location = useLocation();
                             Add TMS Mapping
                         </Link>
                     </li>
+                    <li style={{ flex: 1 }}>
+                        <Link
+                            to="/addXpath"
+                            style={{
+                                display: 'block',
+                                background: location.pathname === '/addXpath' ? 'lightgreen' : '#fbfffe',
+                                color: location.pathname === '/addXpath' ? '#000' : '#04151f',
+                                textAlign: 'center',
+                                padding: '1rem',
+                                textDecoration: 'none',
+                                fontWeight:'900',
+                            }}
+                        >
+                            View Xpath
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         </header>

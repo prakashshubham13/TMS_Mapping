@@ -4,7 +4,8 @@ const previewSlice = createSlice({
     name:'preview',
     initialState:{
         previewData: null,
-        currentStep: 1
+        currentStep: 1,
+        date: null
 },
     reducers:{
         addPreviewData: (state, action) => {
@@ -14,9 +15,12 @@ const previewSlice = createSlice({
         },
         changeCurrentStep:(state, action) => {
             state.currentStep = action.payload;
+        },
+        changeDate:(state, action) => {
+            state.date = action.payload;
         }
     }
 });
 
-export const {addPreviewData, changeCurrentStep} = previewSlice.actions;
+export const {addPreviewData, changeCurrentStep, changeDate} = previewSlice.actions;
 export default previewSlice.reducer;
