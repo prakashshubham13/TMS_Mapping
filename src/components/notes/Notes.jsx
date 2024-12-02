@@ -4,17 +4,17 @@ import { changeDate } from "../../redux/tmsPreviewSlice";
 
 const Notes = ({ notesList, addNoteList }) => {
   const [note, setNote] = useState({
-    date:"1",
-    title: "1",
-    oldXpath: "1",
-    newXpath: "1",
-    nodes: "1",
-    note: "1",
+    date: "",
+    title: "",
+    oldXpath: "",
+    newXpath: "",
+    nodes: "",
+    note: "",
   });
-const dateKey = useSelector(state => state.tmsPreview.date);
-const dispatch = useDispatch();
+  const dateKey = useSelector((state) => state.tmsPreview.date);
+  const dispatch = useDispatch();
 
-console.log(dateKey);
+  console.log(dateKey);
 
   const noteRefs = useRef([]);
 
@@ -24,18 +24,24 @@ console.log(dateKey);
   };
 
   const handleAddNote = () => {
-    if (!note.title || !note.oldXpath || !note.newXpath || !note.nodes || !note.note) {
+    if (
+      !note.title ||
+      !note.oldXpath ||
+      !note.newXpath ||
+      !note.nodes ||
+      !note.note
+    ) {
       alert("Please fill all fields before adding a note.");
       return;
     }
-    addNoteList({...note,date:new Date()});
+    addNoteList({ ...note, date: new Date() });
     setNote({
-      date:"1",
-      title: "1",
-      oldXpath: "1",
-      newXpath: "1",
-      nodes: "1",
-      note: "1",
+      date: "",
+      title: "",
+      oldXpath: "",
+      newXpath: "",
+      nodes: "",
+      note: "",
     });
   };
 
@@ -50,15 +56,21 @@ console.log(dateKey);
     if (dateKey && noteRefs.current.length) {
       // Find the index of the note that matches the dateKey
       const index = notesList.findIndex((data) => {
-        console.log(data.date,"------------",data.title,dateKey,data.date.getTime() === dateKey.getTime());
-        
+        console.log(
+          data.date,
+          "------------",
+          data.title,
+          dateKey,
+          data.date.getTime() === dateKey.getTime()
+        );
+
         return data.date.getTime() === dateKey.getTime();
       });
       console.log(index);
-      
-      if (notesList.length - index -1 !== -1 && noteRefs.current[index]) {
+
+      if (notesList.length - index - 1 !== -1 && noteRefs.current[index]) {
         // Scroll to that particular note
-        noteRefs.current[notesList.length - index -1].scrollIntoView({
+        noteRefs.current[notesList.length - index - 1].scrollIntoView({
           behavior: "smooth",
           block: "start",
         });
@@ -83,40 +95,40 @@ console.log(dateKey);
       {/* Notes List */}
       <div style={{ flex: 5, overflowY: "auto", marginBottom: "1rem" }}>
         {notesList.length > 0 ? (
-          [...notesList]
-            .reverse()
-            .map((data, index) => (
-              <div
-                key={index}
-                ref={(el) => (noteRefs.current[index] = el)} // Assign ref to each note
-                style={{
-                  padding: "0.4rem",
-                  marginBottom: "0.4rem",
-                  border: "1px solid rgba(0, 0, 0, 0.2)",
-                  borderRadius: "0.4rem",
-                  background: "#fff",
-                }}
+          [...notesList].reverse().map((data, index) => (
+            <div
+              key={index}
+              ref={(el) => (noteRefs.current[index] = el)} // Assign ref to each note
+              style={{
+                padding: "0.4rem",
+                marginBottom: "0.4rem",
+                border: "1px solid rgba(0, 0, 0, 0.2)",
+                borderRadius: "0.4rem",
+                background: "#fff",
+              }}
+            >
+              <p>
+                {data?.date?.getDate()} / {data?.date?.getMonth()}
+              </p>
+              <h4 style={wrapStyle}>Title: {data.title}</h4>
+              <p
+                style={{ ...wrapStyle, cursor: "pointer", color: "blue" }}
+                title={data.oldXpath}
+                onClick={() => copyToClipboard(data.oldXpath)}
               >
-                <p>{data?.date?.getDate()} / {data?.date?.getMonth()}</p>
-                <h4 style={wrapStyle}>Title: {data.title}</h4>
-                <p
-                  style={{ ...wrapStyle, cursor: "pointer", color: "blue" }}
-                  title={data.oldXpath}
-                  onClick={() => copyToClipboard(data.oldXpath)}
-                >
-                  Old Xpath: <span>{data.oldXpath}</span>
-                </p>
-                <p
-                  style={{ ...wrapStyle, cursor: "pointer", color: "blue" }}
-                  title={data.newXpath}
-                  onClick={() => copyToClipboard(data.newXpath)}
-                >
-                  New Xpath: <span>{data.newXpath}</span>
-                </p>
-                <p style={wrapStyle}>Nodes Affected: {data.nodes}</p>
-                <p style={wrapStyle}>Notes: {data.note}</p>
-              </div>
-            ))
+                Old Xpath: <span>{data.oldXpath}</span>
+              </p>
+              <p
+                style={{ ...wrapStyle, cursor: "pointer", color: "blue" }}
+                title={data.newXpath}
+                onClick={() => copyToClipboard(data.newXpath)}
+              >
+                New Xpath: <span>{data.newXpath}</span>
+              </p>
+              <p style={wrapStyle}>Nodes Affected: {data.nodes}</p>
+              <p style={wrapStyle}>Notes: {data.note}</p>
+            </div>
+          ))
         ) : (
           <p style={{ textAlign: "center", color: "rgba(0, 0, 0, 0.6)" }}>
             No notes added yet.
