@@ -2,12 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeDate } from "../../redux/tmsPreviewSlice";
 
-const IbgNotes = ({ ibgNotesList, addIbgNoteList, selectedItem, index }) => {
+const IbgNotes = ({ ibgNotesList, addIbgNoteList }) => {
   const [note, setNote] = useState(ibgNotesList);
   const dateKey = useSelector((state) => state.tmsPreview.date);
   const dispatch = useDispatch();
 
-console.log("================",note,selectedItem, index);
 
 useEffect(()=>{
     setNote(ibgNotesList);

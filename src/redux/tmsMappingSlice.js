@@ -72,9 +72,9 @@ const tmsMappingSlice = createSlice({
       categoryEntry[category][index].modifiedImg = modifiedImg;
 
 
-      console.log(category);
+      console.log(category,ibgNotes);
       
-      categoryEntry[category][index].ibgNotes = ibgNotes;
+      categoryEntry[category][index].ibgNotes = ibgNotes.length ? ibgNotes : categoryEntry[category][index].ibgNotes;
 
       // if (categoryEntry) {
       //   const screenEntry = categoryEntry[category][index].find((entry) => entry.screen === screen);
