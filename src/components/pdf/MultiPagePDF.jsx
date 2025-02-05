@@ -36,7 +36,12 @@ console.log(data,Object.values(data)[0]);
 const text = Object.keys(data)[0];
 for(const internalData of Object.values(data)[0]){
     console.log('------------------>>>>>>><<<<<',internalData?.modifiedImg);
-    transforedData.push({text:text, base64Image: internalData?.modifiedImg, notes: internalData?.notes.join('\n')    });
+    console.log("ibg notes",internalData?.ibgNotes);
+    const ibgNotesText = internalData?.ibgNotes.map((data)=>{
+      return "Question: "+data.question+"\n"+"Answer: "+(data.value?data.value:"none");
+    })
+    
+    transforedData.push({text:text, base64Image: internalData?.modifiedImg, notes: ibgNotesText.join('\n')    });
     
 }
 }
@@ -57,7 +62,7 @@ const {text, base64Image, notes} = data;
       // Adding text to PDF
       pdf.setFontSize(16);
       pdf.text(text, 10, 10);
-      pdf.text('Notes:', 10, 20);
+      pdf.text('IBG Notes:', 10, 20);
       pdf.text(notes, 10, 30);
 
       // Convert base64 SVG to JPEG
@@ -66,7 +71,7 @@ const {text, base64Image, notes} = data;
       // Add JPEG to PDF
       const imgWidth = 180;
       const imgHeight = 160;
-      pdf.addImage(jpegDataUrl, 'JPEG', 10, 80, imgWidth, imgHeight);
+      pdf.addImage(jpegDataUrl, 'JPEG', 10, 100, imgWidth, imgHeight);
 
       // Add a new page if not the last item
       if (tmsMapping.indexOf(data) < tmsMapping.length - 1) {

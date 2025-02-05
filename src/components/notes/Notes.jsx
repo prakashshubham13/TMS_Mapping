@@ -85,11 +85,11 @@ const Notes = ({ notesList, addNoteList }) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        height: "calc(100vh - 22vh)",
+        height: "calc(100vh - 26vh)",
         overflowY: "hidden",
         background: "#fbfcf8",
         padding: "0.4rem",
-        borderLeft: "0.2rem dashed rgba(0,0,0,0.8)",
+        
       }}
     >
       {/* Notes List */}
@@ -107,8 +107,8 @@ const Notes = ({ notesList, addNoteList }) => {
                 background: "#fff",
               }}
             >
-              <p>
-                {data?.date?.getDate()} / {data?.date?.getMonth()}
+              <p style={{textDecoration:"underline"}}>
+                {String(data?.date?.getDate()).padStart(2,"0")}-{String(data?.date?.getMonth() + 1).padStart(2,"0")}-{data?.date?.getFullYear()}
               </p>
               <h4 style={wrapStyle}>Title: {data.title}</h4>
               <p
@@ -131,7 +131,7 @@ const Notes = ({ notesList, addNoteList }) => {
           ))
         ) : (
           <p style={{ textAlign: "center", color: "rgba(0, 0, 0, 0.6)" }}>
-            No notes added yet.
+            No xpath notes added yet.
           </p>
         )}
       </div>
@@ -201,7 +201,7 @@ const Notes = ({ notesList, addNoteList }) => {
             cursor: "pointer",
           }}
         >
-          Add Note
+          Add Xpath Update
         </button>
       </div>
     </div>
