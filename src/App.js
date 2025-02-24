@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
-import DashboardRouter from './router/DshboardRouter';
+import DashboardRouter from './router/DashboardRouter';
 import { Provider } from 'react-redux';
 import { store  } from './redux/store';
 function App() {

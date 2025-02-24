@@ -1,0 +1,71 @@
+.add-screen-fieldset {
+  display: flex;
+  border: 0.1rem solid #ccc;
+  padding: 1rem;
+  width: 50vw;
+  margin: 1rem auto;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-screen-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-upload-label {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: #007bff;
+  align-items: center;
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 0.4rem;
+  transition: background 0.3s;
+}
+
+.file-upload-label:hover {
+  background: #0056b3;
+}
+
+.file-upload-icon {
+  width: 8rem;
+  height: 8rem;
+}
+
+.upload-text {
+  color: #fff;
+  margin-left: 1rem;
+}
+
+.image-list {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.image-item {
+  margin: 0.5rem;
+  text-align: center;
+}
+
+.uploaded-image {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.2rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.image-dimensions {
+  font-size: 0.8rem;
+  color: #555;
+}

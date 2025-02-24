@@ -4,6 +4,7 @@ import Menubar from "../components/menubar/Menubar";
 import Notes from "../components/notes/Notes";
 import { useSelector } from "react-redux";
 import MultiPagePDF from "../components/pdf/MultiPagePDF";
+import { useNavigate } from "react-router-dom";
 
 const AddMapping = () => {
   /**
@@ -12,6 +13,7 @@ const AddMapping = () => {
    */
   const mappingData = useSelector((state) => state.tmsMapping);
   const selectedItem = useSelector((state) => state?.tmsPreview?.previewData);
+  const navigate = useNavigate();
   mappingData.forEach((data) => {
     console.log(
       "-------------------------------",
@@ -32,7 +34,7 @@ const AddMapping = () => {
         display: "flex",
         width: "100%",
         height: "calc(100vh - 6vh)",
-        borderTop: "0.1rem solid #000",
+        // borderTop: "0.1rem solid #000",
       }}
     >
       <div
@@ -50,6 +52,24 @@ const AddMapping = () => {
         ) : null}
       </div>
       {/* <MultiPagePDF dataList={}/> */}
+      <button
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          right: "20px",
+          borderRadius: "50%",
+          width: "60px",
+          height: "60px",
+          fontSize: "24px",
+          backgroundColor: "#007bff",
+          color: "#fff",
+          border: "none",
+          cursor: "pointer",
+        }}
+        onClick={() => navigate("/uploadScreen")}
+      >
+        ↑
+      </button>
     </div>
   );
 };

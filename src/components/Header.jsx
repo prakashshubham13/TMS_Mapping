@@ -17,7 +17,7 @@ const location = useLocation();
                     // borderBottom:'0.1rem solid #1a0d6e'
                     }}>
                     <li style={{ flex: 1 }}>
-                        <Link
+                    <Link
                             to="/"
                             style={{
                                 display: 'block',
@@ -30,9 +30,26 @@ const location = useLocation();
                                 background: location.pathname === '/' ? 'lightgreen' : '#fbfffe',
                             }}
                         >
+                            Client Configuration
+                        </Link>
+                        </li>
+                    {/* <li style={{ flex: 1 }}>
+                        <Link
+                            to="/uploadScreen"
+                            style={{
+                                display: 'block',
+                                background: 'blue',
+                                color: location.pathname === '/uploadScreen' ? '#000' : '#04151f',
+                                textAlign: 'center',
+                                padding: '1rem',
+                                textDecoration: 'none',
+                                fontWeight:'900',
+                                background: location.pathname === '/uploadScreen' ? 'lightgreen' : '#fbfffe',
+                            }}
+                        >
                             Upload TMS Screens
                         </Link>
-                    </li>
+                    </li> */}
                     <li style={{ flex: 1 }}>
                         <Link
                             to="/addMapping"
@@ -51,6 +68,22 @@ const location = useLocation();
                     </li>
                     <li style={{ flex: 1 }}>
                         <Link
+                            to="/checklist"
+                            style={{
+                                display: 'block',
+                                background: location.pathname === '/checklist' ? 'lightgreen' : '#fbfffe',
+                                color: location.pathname === '/checklist' ? '#000' : '#04151f',
+                                textAlign: 'center',
+                                padding: '1rem',
+                                textDecoration: 'none',
+                                fontWeight:'900',
+                            }}
+                        >
+                            Checklist
+                        </Link>
+                    </li>
+                    <li style={{ flex: 1 }}>
+                        <Link
                             to="/addXpath"
                             style={{
                                 display: 'block',
@@ -62,7 +95,7 @@ const location = useLocation();
                                 fontWeight:'900',
                             }}
                         >
-                            View Xpath
+                            View Xpath Issues
                         </Link>
                     </li>
                 </ul>

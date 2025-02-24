@@ -61,10 +61,10 @@ const Notes = ({ notesList, addNoteList }) => {
           "------------",
           data.title,
           dateKey,
-          data.date.getTime() === dateKey.getTime()
+          new Date(data?.date).getTime() === dateKey.getTime()
         );
 
-        return data.date.getTime() === dateKey.getTime();
+        return new Date(data?.date).getTime() === dateKey.getTime();
       });
       console.log(index);
 
@@ -108,7 +108,7 @@ const Notes = ({ notesList, addNoteList }) => {
               }}
             >
               <p style={{textDecoration:"underline"}}>
-                {String(data?.date?.getDate()).padStart(2,"0")}-{String(data?.date?.getMonth() + 1).padStart(2,"0")}-{data?.date?.getFullYear()}
+                {String(new Date(data?.date)?.getDate()).padStart(2,"0")}-{String(new Date(data?.date)?.getMonth() + 1).padStart(2,"0")}-{new Date(data?.date)?.getFullYear()}
               </p>
               <h4 style={wrapStyle}>Title: {data.title}</h4>
               <p

@@ -1,0 +1,10 @@
+.upload-tms-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.upload-tms-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
